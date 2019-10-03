@@ -1,0 +1,21 @@
+# FORCE WWW TO NON-WWW
+RewriteEngine On
+RewriteCond %{HTTP_HOST} ^www.yourdomain.com [NC]
+RewriteRule ^(.*)$ http://yourdomain.com/$1 [L,R=301]
+# FORCE NON-WWW TO WWW
+
+# HTTPS FORCE
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+</IfModule>
+# END HTTPS
+
+# FORCE NON-WWW TO WWW
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteCond %{HTTP_HOST} ^yourdomain.com [NC]
+RewriteRule ^(.*)$ https://www.yourdomain.com/$1 [L,R=301]
+</IfModule>
+# END FORCE
